@@ -1,14 +1,21 @@
 package dev.gustavdias.bookstore.domain;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Categoria {
+@Entity
+public class Categoria implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String descricao;
 
+    @OneToMany(mappedBy = "categoria")
     private List <Livro> livros = new ArrayList<>();
 
     public Categoria() {
