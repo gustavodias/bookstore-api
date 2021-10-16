@@ -1,5 +1,6 @@
 package dev.gustavdias.bookstore.services;
 
+import dev.gustavdias.bookstore.domain.Categoria;
 import dev.gustavdias.bookstore.domain.Livro;
 import dev.gustavdias.bookstore.repository.LivroRepository;
 import dev.gustavdias.bookstore.services.exceptions.ObjectNotFoundException;
@@ -38,5 +39,12 @@ public class LivroService {
         newObj.setTitulo(obj.getTitulo());
         newObj.setNomeAutor(obj.getNomeAutor());
         newObj.setTexto(obj.getTexto());
+    }
+
+    public Livro create(Integer idCat, Livro obj) {
+        obj.setId(null);
+        Categoria cat = categoriaService.findById(idCat);
+        obj.setCategoria(cat);
+        return livroRepository.save(obj);
     }
 }
