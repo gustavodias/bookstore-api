@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
@@ -44,7 +45,7 @@ public class CategoriaResource {
 
     @PutMapping(value = "/{id}")
     @Transactional
-    public ResponseEntity<Categoria> atualizar(@PathVariable Integer id, @RequestBody CategoriaDTO objDto){
+    public ResponseEntity<Categoria> atualizar(@Valid @PathVariable Integer id, @RequestBody CategoriaDTO objDto){
             var categoria = categoriaService.atualizar(id, objDto);
             return ResponseEntity.ok(categoria);
     }
