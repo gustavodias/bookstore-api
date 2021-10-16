@@ -4,7 +4,6 @@ import dev.gustavdias.bookstore.domain.Categoria;
 import dev.gustavdias.bookstore.domain.Livro;
 import dev.gustavdias.bookstore.repository.CategoriaRepository;
 import dev.gustavdias.bookstore.repository.LivroRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -12,10 +11,14 @@ import java.util.Arrays;
 @Service
 public class DBService {
 
-    @Autowired
-    private CategoriaRepository categoriaRepository;
-    @Autowired
-    private LivroRepository livroRepository;
+    private final CategoriaRepository categoriaRepository;
+    private final LivroRepository livroRepository;
+
+    public DBService(CategoriaRepository categoriaRepository,
+                     LivroRepository livroRepository) {
+        this.categoriaRepository = categoriaRepository;
+        this.livroRepository = livroRepository;
+    }
 
     public void instaciaBaseDeDados(){
         Categoria cat1 = new Categoria(null, "Informatica", "Livros de TI");
