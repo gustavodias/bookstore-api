@@ -3,6 +3,7 @@ package dev.gustavdias.bookstore.services;
 import dev.gustavdias.bookstore.domain.Categoria;
 import dev.gustavdias.bookstore.domain.Livro;
 import dev.gustavdias.bookstore.repository.LivroRepository;
+import dev.gustavdias.bookstore.services.exceptions.DataIntegrityViolationException;
 import dev.gustavdias.bookstore.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,10 @@ public class LivroService {
         Categoria cat = categoriaService.findById(idCat);
         obj.setCategoria(cat);
         return livroRepository.save(obj);
+    }
+
+    public void delete(Integer id) {
+        findById(id);
+        livroRepository.deleteById(id);
     }
 }
