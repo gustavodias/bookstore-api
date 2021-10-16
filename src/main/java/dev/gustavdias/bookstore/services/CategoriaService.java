@@ -3,6 +3,7 @@ package dev.gustavdias.bookstore.services;
 import dev.gustavdias.bookstore.domain.Categoria;
 import dev.gustavdias.bookstore.dtos.CategoriaDTO;
 import dev.gustavdias.bookstore.repository.CategoriaRepository;
+import dev.gustavdias.bookstore.services.exceptions.DataIntegrityViolationException;
 import dev.gustavdias.bookstore.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,10 @@ public class CategoriaService {
 
     public void delete(Integer id){
         findById(id);
-        repository.deleteById(id);
+        try {
+          repository.deleteById(id);
+        } catch (org.springframework.dao.DataIntegrityViolationException e){
+            throw new DataIntegrityViolationException("Categoria não pode ser deletado! Possui Livros associados.");
+        }
     }
 }
