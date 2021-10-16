@@ -1,6 +1,7 @@
 package dev.gustavdias.bookstore.services;
 
 import dev.gustavdias.bookstore.domain.Categoria;
+import dev.gustavdias.bookstore.dtos.CategoriaDTO;
 import dev.gustavdias.bookstore.repository.CategoriaRepository;
 import dev.gustavdias.bookstore.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,13 @@ public class CategoriaService {
 
     public Categoria create(Categoria obj){
         obj.setId(null);
+        return repository.save(obj);
+    }
+
+    public Categoria atualizar(Integer id, CategoriaDTO objDto) {
+        Categoria obj = findById(id);
+        obj.setNome(objDto.getNome());
+        obj.setDescricao(objDto.getDescricao());
         return repository.save(obj);
     }
 }
